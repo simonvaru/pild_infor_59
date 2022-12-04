@@ -6,30 +6,29 @@ from funciones import *
 
 
 ###########################FUNCIONES######################################
-# def conexionBBDD():
-#     miConexion=sqlite3.connect('pild_infor_59/Usuarios')
-#     miCursor=miConexion.cursor()
-#     try:
-#         miCursor.execute('''
-#             CREATE TABLE DATAOUSUARIOS(
-#             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-#             NOMBRE_USUARIO VARCHAR(50),
-#             PASSWORD VARCHAR(50),
-#             APELLIDO VARCHAR(10),
-#             DIRECCION VARCHAR(50),
-#             COMENTARIOS VARCHAR(100)) 
-#             ''')
-#         messagebox.showinfo("BBDD", "BBDD creada con exito")
-#     except:
-#         messagebox.showwarning("¡Atencion!", "La BBDD ya existe")
-
-def crear():
-    miConexion=sqlite3.connect("pild_infor_59/Usuarios")
+def conexionBBDD():
+    miConexion=sqlite3.connect('pild_infor_59/Usuarios')
     miCursor=miConexion.cursor()
-    miCursor.execute("INSERT INTO DATAUSUARIOS VALUES(NULL,'" + miNombre.get()+"','" + miApellido.get()+"','" + miPass.get()+"','" + miDireccion.get()+"','" + textoCOMENTARIO.get("1.0", END)+"')")
-    miConexion.commit()
-    messagebox.showinfo("BBDD","Registro insertado con exito")
+    try:
+        miCursor.execute('''
+            CREATE TABLE DATAUSUARIOS(
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            NOMBRE_USUARIO VARCHAR(50),
+            PASSWORD VARCHAR(50),
+            APELLIDO VARCHAR(10),
+            DIRECCION VARCHAR(50),
+            COMENTARIOS VARCHAR(100)) 
+            ''')
+        messagebox.showinfo("BBDD", "BBDD creada con exito")
+    except:
+        messagebox.showwarning("¡Atencion!", "La BBDD ya existe")
 
+        
+def salir_app():
+    valor=messagebox.askquestion("Salir", "¿Deseas salir de la aplicacion?")
+    if valor=="yes":
+        root.destroy()
+        
 def limpiar_campos():
     miId.set("")
     miNombre.set("")
@@ -38,12 +37,29 @@ def limpiar_campos():
     miDireccion.set("")
     textoCOMENTARIO.delete(1.0, END)
 
+def crear():
+    miConexion=sqlite3.connect("pild_infor_59/Usuarios")
+    miCursor=miConexion.cursor()
+    miCursor.execute("INSERT INTO DATAUSUARIOS VALUES(NULL,'" + miNombre.get()+"','" + miApellido.get()+"','" + miPass.get()+"','" + miDireccion.get()+"','" + textoCOMENTARIO.get("1.0", END)+"')")
+    miConexion.commit()
+    messagebox.showinfo("BBDD","Registro insertado con exito")
 
         
-def salir_app():
-    valor=messagebox.askquestion("Salir", "¿Deseas salir de la aplicacion?")
-    if valor=="yes":
-        root.destroy()
+def leer():
+    miConexion=sqlite3.connect("Usuarios")
+    miCursor=miConexion.cursor()
+    miCursor.execute("SELECT * FROM DATAUSUARIOS WHERE ID=" + miId.get())
+    elUsuario=miCursor.fetchall()
+    for usuario in elUsuario:
+        miId.set(usuario[0]) 
+        miNombre.set(usuario[1])
+        miApellido.set(usuario[2])
+        miPass.set(usuario[3])
+        miDireccion.set(usuario[4])
+        textoCOMENTARIO.insert(1.0, usuario[5])   
+        
+    miConexion.commit()
+    
 
 ###########################################################################
 
@@ -68,7 +84,7 @@ borrarMenu.add_command(label="Borrar campos", command=limpiar_campos)
 crudMenu=Menu(barraMenu, tearoff=0)
 barraMenu.add_cascade(label="CRUD", menu=crudMenu)
 crudMenu.add_command(label="Crear", command=crear)
-crudMenu.add_command(label="Leer")
+crudMenu.add_command(label="Leer", command=leer)
 crudMenu.add_command(label="Actualizar")
 crudMenu.add_command(label="Borrar")
 
@@ -144,7 +160,7 @@ miFrame2.pack()
 botonCrear=Button(miFrame2, text="Create", command=crear)
 botonCrear.grid(row=0, column=0, sticky="e", padx=10, pady=10)
 
-botonLeer=Button(miFrame2, text="Leer")
+botonLeer=Button(miFrame2, text="Leer",command=leer)
 botonLeer.grid(row=0, column=1, sticky="e", padx=10, pady=10)
 
 botonActualizar=Button(miFrame2, text="Actualizar")
