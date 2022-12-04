@@ -22,6 +22,23 @@ from funciones import *
 #         messagebox.showinfo("BBDD", "BBDD creada con exito")
 #     except:
 #         messagebox.showwarning("¡Atencion!", "La BBDD ya existe")
+
+def crear():
+    miConexion=sqlite3.connect("pild_infor_59/Usuarios")
+    miCursor=miConexion.cursor()
+    miCursor.execute("INSERT INTO DATAUSUARIOS VALUES(NULL,'" + miNombre.get()+"','" + miApellido.get()+"','" + miPass.get()+"','" + miDireccion.get()+"','" + textoCOMENTARIO.get("1.0", END)+"')")
+    miConexion.commit()
+    messagebox.showinfo("BBDD","Registro insertado con exito")
+
+def limpiar_campos():
+    miId.set("")
+    miNombre.set("")
+    miApellido.set("")
+    miPass.set("")
+    miDireccion.set("")
+    textoCOMENTARIO.delete(1.0, END)
+
+
         
 def salir_app():
     valor=messagebox.askquestion("Salir", "¿Deseas salir de la aplicacion?")
@@ -50,7 +67,7 @@ borrarMenu.add_command(label="Borrar campos", command=limpiar_campos)
 
 crudMenu=Menu(barraMenu, tearoff=0)
 barraMenu.add_cascade(label="CRUD", menu=crudMenu)
-crudMenu.add_command(label="Crear")
+crudMenu.add_command(label="Crear", command=crear)
 crudMenu.add_command(label="Leer")
 crudMenu.add_command(label="Actualizar")
 crudMenu.add_command(label="Borrar")
@@ -87,7 +104,7 @@ cuadroPASS=Entry(miFrame, textvariable=miPass)
 cuadroPASS.grid(row=3, column=1,padx=10,pady=10)
 cuadroPASS.config(show="*")
 
-cuadroDIRECCION=Entry(miFrame)
+cuadroDIRECCION=Entry(miFrame, textvariable=miDireccion)
 cuadroDIRECCION.grid(row=4, column=1,padx=10,pady=10)
 
 textoCOMENTARIO=Text(miFrame, width=16, height=5)
@@ -124,7 +141,7 @@ comentariosLabel.grid(row=5, column=0, sticky="e", padx=10, pady="10")
 miFrame2=Frame(root)
 miFrame2.pack()
 
-botonCrear=Button(miFrame2, text="Create")
+botonCrear=Button(miFrame2, text="Create", command=crear)
 botonCrear.grid(row=0, column=0, sticky="e", padx=10, pady=10)
 
 botonLeer=Button(miFrame2, text="Leer")
@@ -133,7 +150,7 @@ botonLeer.grid(row=0, column=1, sticky="e", padx=10, pady=10)
 botonActualizar=Button(miFrame2, text="Actualizar")
 botonActualizar.grid(row=0, column=2, sticky="e", padx=10, pady=10)
 
-botonBorrar=Button(miFrame2, text="Borrar")
+botonBorrar=Button(miFrame2, text="Borrar",command=limpiar_campos)
 botonBorrar.grid(row=0, column=3, sticky="e", padx=10, pady=10)
 
 ###########################################################################
