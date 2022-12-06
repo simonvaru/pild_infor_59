@@ -30,5 +30,5 @@ import sqlite3
 #     miDireccion.set("")
 #     miPass.set("")
 #     textoCOMENTARIO.delete(1.0, END)
-
+######################NADA PARA AGREGAR##################################
  
