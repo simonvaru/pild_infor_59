@@ -34,3 +34,7 @@ import sqlite3
 def funcion1():
     # sin uso
     pass  
+
+def funcion2():
+    # sin uso
+    pass 
