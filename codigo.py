@@ -184,4 +184,7 @@ botonBorrar.grid(row=0, column=3, sticky="e", padx=10, pady=10)
 
 ###########################################################################
 root.mainloop()
+############################SIN USO#######################################
+# botonF1=Button(miFrame2, text="F1", command=funcion1)
+# botonF1.grid(row=1, column=0, sticky="e", padx=10, pady=10)
 ###########################################################################
