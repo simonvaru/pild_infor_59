@@ -31,4 +31,14 @@ import sqlite3
 #     miPass.set("")
 #     textoCOMENTARIO.delete(1.0, END)
 ######################NADA PARA AGREGAR##################################
- 
+def funcion1():
+    # sin uso
+    pass  
+
+def funcion2():
+    # sin uso
+    pass 
+
+def funcion3():
+    # sin uso
+    pass 
