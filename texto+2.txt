@@ -1,0 +1,2 @@
+En este vídeo vemos algunas de las herramientas de Visual Studio Code para trabajar con ramas.
+Para más cursos, ejercicios y manuales visita: www.pildorasinformaticas.es
