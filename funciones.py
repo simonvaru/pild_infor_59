@@ -46,3 +46,7 @@ def funcion3():
 def funcion4a():
     # sin uso
     pass
+
+def funciona5diseniador2():
+    # sin uso
+    pass
