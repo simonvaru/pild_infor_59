@@ -42,3 +42,7 @@ def funcion2():
 def funcion3():
     # sin uso
     pass 
+
+def funcion4a():
+    # sin uso
+    pass
